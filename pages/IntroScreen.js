@@ -7,22 +7,24 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 import React, { useState } from "react";
 
-import StaterScreen from "./StarterScreen";
+import AppLoading from "expo-app-loading";
 
-const IntroScreen = (props) => {
+const IntroScreen = ({ navigation }) => {
   let [windowScreen, setWindow] = useState("");
   let [firstScreen, setFirstScreen] = useState("");
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+    BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
+  });
+
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   const image = require("../assets/nutrition.jpg");
-
-  const onStarted = (props) => {
-    if (props === "1") {
-      console.log("ejecutado", props);
-      setWindow(<StaterScreen />);
-    }
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -37,7 +39,9 @@ const IntroScreen = (props) => {
           </Text>
           <TouchableOpacity
             style={styles.header}
-            onPress={() => onStarted("1")}
+            onPress={() => {
+              navigation.navigate("Starter");
+            }}
           >
             <Text style={styles.text}>TAP TO START</Text>
           </TouchableOpacity>
@@ -61,15 +65,17 @@ const styles = StyleSheet.create({
   },
   header: {
     flex: 1,
-    height: "100%",
+    height: "70%",
     fontSize: 25,
-    padding: 40,
+    padding: 30,
+    fontFamily: "BebasNeue",
+    textAlign: "center",
   },
   text: {
-    color: "black",
-    fontSize: 17,
-    lineHeight: 50,
+    fontSize: 27,
+    lineHeight: 10,
     textAlign: "center",
+    fontFamily: "Inter_900Black",
   },
 });
 

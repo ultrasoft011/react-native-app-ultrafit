@@ -1,8 +1,7 @@
-import { Button, FlatList, TouchableOpacity } from "react-native-web";
+import { Dimensions, FlatList, TouchableOpacity } from "react-native-web";
 import {
   ImageBackground,
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -12,19 +11,21 @@ import DATA from "../data/status";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 
+const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get("window").width;
+
 const StaterScreen = (props) => {
   const [statusSelected, setStatusSelected] = useState("");
   const [buttonNext, setButtonNext] = useState("");
-  const [number, setNumber] = useState();
 
   console.log(props);
 
   const Item = ({ title }) => (
-    <View>
+    <SafeAreaView>
       <TouchableOpacity onPress={onPress}>
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 
   const firstImage = require("../assets/home-image.jpg");
@@ -47,6 +48,7 @@ const StaterScreen = (props) => {
     <SafeAreaView style={styles.container}>
       <ImageBackground
         source={firstImage}
+        resizeMode="stretch"
         style={styles.image}
         imageStyle={{ opacity: 0.55 }}
       >
@@ -92,8 +94,10 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   image: {
-    flex: 1,
-    width: "100%",
+    height: screenHeight,
+    width: screenWidth,
+    justifyContent: "center",
+    alignItems: "center",
   },
   emoticon: {
     fontSize: 50,
@@ -122,6 +126,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     textAlign: "center",
+    opacity: 0.75,
   },
 });
 
