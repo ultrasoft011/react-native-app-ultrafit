@@ -8,7 +8,12 @@ const Stack = createNativeStackNavigator();
 
 const UltraFitNavigator = () => (
   <NavigationContainer>
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator
+      initialRouteName="Home"
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
       <Stack.Screen name="Home" component={IntroScreen} />
       <Stack.Screen name="Starter" component={StaterScreen} />
     </Stack.Navigator>

@@ -1,5 +1,6 @@
 import {
   Button,
+  Image,
   ImageBackground,
   SafeAreaView,
   StyleSheet,
@@ -8,13 +9,11 @@ import {
   View,
 } from "react-native";
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
-import React, { useState } from "react";
 
 import AppLoading from "expo-app-loading";
+import React from "react";
 
 const IntroScreen = ({ navigation }) => {
-  let [windowScreen, setWindow] = useState("");
-  let [firstScreen, setFirstScreen] = useState("");
   let [fontsLoaded] = useFonts({
     Inter_900Black,
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
@@ -25,6 +24,7 @@ const IntroScreen = ({ navigation }) => {
   }
 
   const image = require("../assets/nutrition.jpg");
+  const image2 = require("../assets/12.jpg");
 
   return (
     <SafeAreaView style={styles.container}>
@@ -33,45 +33,82 @@ const IntroScreen = ({ navigation }) => {
         style={styles.image}
         imageStyle={{ opacity: 1 }}
       >
-        <View style={styles.header}>
-          <Text style={styles.header}>
-            Welcome to Ultrafit, press next to get the information!
+        <View style={styles.block1}>
+          <Text style={styles.header}>Welcome to Ultrafit</Text>
+        </View>
+        <View style={styles.block2}>
+          <Text style={styles.description}>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
+            est vitae arcu euismod lobortis. Donec bibendum ultrices aliquet.
+            Donec iaculis bibendum tellus.{" "}
           </Text>
+        </View>
+        <View style={styles.block3}>
           <TouchableOpacity
-            style={styles.header}
+            style={styles.startButton}
             onPress={() => {
               navigation.navigate("Starter");
             }}
           >
-            <Text style={styles.text}>TAP TO START</Text>
+            <Text style={styles.textStart}>TAP TO START</Text>
           </TouchableOpacity>
         </View>
-        {windowScreen}
+        <View style={styles.block4}>
+          <Image source={image2}></Image>
+          <Text style={styles.footer}>Design by: Andrés Felipe - Ultra </Text>
+          <Text>2022</Text>
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  block1: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
+  },
+  block2: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  block3: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  block4: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 40,
+  },
+  container: {
+    flex: 1,
   },
   image: {
     flex: 1,
-    width: "100%",
-    height: "auto",
   },
   header: {
-    flex: 1,
-    height: "70%",
-    fontSize: 25,
+    fontSize: 31,
     padding: 30,
     fontFamily: "BebasNeue",
     textAlign: "center",
   },
-  text: {
+  description: {
+    fontSize: 18,
+    fontFamily: "BebasNeue",
+    textAlign: "center",
+    padding: 35,
+  },
+
+  startButton: {
+    padding: 10,
+  },
+  textStart: {
     fontSize: 27,
     lineHeight: 10,
     textAlign: "center",

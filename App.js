@@ -10,8 +10,10 @@ import {
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 
 import AppLoading from "expo-app-loading";
+import MainNavigator from "./navigation";
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
-import StaterScreen from "./pages/StarterScreen";
+import TabNavigator from "./navigation/tab/TabNavigator";
 import UltraFitNavigator from "./navigation/UltraFitNavigator";
 
 export default function App() {
@@ -23,7 +25,5 @@ export default function App() {
     return <AppLoading />;
   }
 
-  return (
-    <UltraFitNavigator style={{ fontFamily: "Inter_900Black", fontSize: 80 }} />
-  );
+  return <MainNavigator />;
 }

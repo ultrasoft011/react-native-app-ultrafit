@@ -6,7 +6,9 @@ import {
   Text,
   View,
 } from "react-native";
+import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 
+import AppLoading from "expo-app-loading";
 import DATA from "../data/status";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
@@ -17,6 +19,13 @@ const screenWidth = Dimensions.get("window").width;
 const StaterScreen = (props) => {
   const [statusSelected, setStatusSelected] = useState("");
   const [buttonNext, setButtonNext] = useState("");
+  let [fontsLoaded] = useFonts({
+    Inter_900Black,
+    BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
+  });
+  if (!fontsLoaded) {
+    return <AppLoading />;
+  }
 
   console.log(props);
 
@@ -52,19 +61,19 @@ const StaterScreen = (props) => {
         style={styles.image}
         imageStyle={{ opacity: 0.55 }}
       >
-        <View>
+        <View style={styles.block1}>
           <Text style={styles.header}>¿Cómo te sientes hoy?</Text>
+        </View>
+        <View style={styles.block2}>
           <FlatList
             data={DATA}
             renderItem={renderItem}
             keyExtractor={(item) => item.id}
           ></FlatList>
+        </View>
+        <View style={styles.block3}>
           <Text style={styles.emoticon}>{statusSelected}</Text>
           {buttonNext}
-        </View>
-
-        <View>
-          <Text style={styles.footer}>UltraFit</Text>
         </View>
 
         <StatusBar style="auto" />
@@ -79,17 +88,32 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  block1: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  block2: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  block3: {
+    flex: 4,
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 180,
+  },
   header: {
     color: "white",
-    fontSize: 23,
-    fontWeight: "bold",
+    fontFamily: "BebasNeue",
+    fontSize: 34,
     textAlign: "center",
-    paddingTop: 100,
-    paddingBottom: 80,
   },
   text: {
     color: "white",
-    fontSize: 17,
+    fontSize: 21,
+    fontFamily: "BebasNeue",
     lineHeight: 50,
     textAlign: "center",
   },
@@ -102,8 +126,7 @@ const styles = StyleSheet.create({
   emoticon: {
     fontSize: 50,
     alignSelf: "center",
-    paddingTop: 25,
-    paddingBottom: 30,
+    marginBottom: 15
   },
   nextButton: {
     alignSelf: "center",
@@ -113,8 +136,10 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "bold",
     width: "30%",
-    padding: 8,
+    paddingVertical: 8,
+    paddingHorizontal: 40,
     opacity: 0.9,
+    marginBottom: 40
   },
   footer: {
     color: "white",
