@@ -7,16 +7,20 @@ import {
   View,
 } from "react-native";
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
+import { useDispatch, useSelector } from "react-redux";
 
 import AppLoading from "expo-app-loading";
 import DATA from "../data/status";
 import { StatusBar } from "expo-status-bar";
+import { changeStatus } from "../features/cart/cartSlice";
 import { useState } from "react";
 
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
 
 const StaterScreen = (props) => {
+  const { statusSelection } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
   const [statusSelected, setStatusSelected] = useState("");
   const [buttonNext, setButtonNext] = useState("");
   let [fontsLoaded] = useFonts({
@@ -28,6 +32,7 @@ const StaterScreen = (props) => {
   }
 
   console.log(props);
+  console.log(statusSelection);
 
   const Item = ({ title }) => (
     <SafeAreaView>
@@ -46,6 +51,7 @@ const StaterScreen = (props) => {
     DATA.map((element) => {
       if (e.target.innerText === element.title) {
         setStatusSelected(element.emoticon);
+        dispatch(changeStatus(element.id));
         setButtonNext(
           <TouchableOpacity style={styles.nextButton}>Next</TouchableOpacity>
         );
@@ -126,7 +132,7 @@ const styles = StyleSheet.create({
   emoticon: {
     fontSize: 50,
     alignSelf: "center",
-    marginBottom: 15
+    marginBottom: 15,
   },
   nextButton: {
     alignSelf: "center",
@@ -139,7 +145,7 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 40,
     opacity: 0.9,
-    marginBottom: 40
+    marginBottom: 40,
   },
   footer: {
     color: "white",
