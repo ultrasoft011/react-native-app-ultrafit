@@ -1,3 +1,4 @@
+import { Account } from "../../pages/Account";
 import IntroScreen from "../../pages/IntroScreen";
 import { Nutrition } from "../../pages/Nutrition";
 import React from "react";
@@ -9,12 +10,12 @@ const BottomTabs = createBottomTabNavigator();
 
 const TabNavigator = () => (
   <BottomTabs.Navigator
-    initialRouteName="Home"
+    initialRouteName="IntroScreen"
     screenOptions={{ headerShown: false, tabBarStyle: styles.tabBar }}
   >
     <BottomTabs.Screen
       name="Intro"
-      component={IntroScreen}
+      component={Account}
       options={{ tabBarStyle: { display: "none" } }}
     />
     <BottomTabs.Screen name="Starter" component={StaterScreen} />

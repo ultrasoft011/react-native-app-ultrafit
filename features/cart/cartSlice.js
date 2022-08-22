@@ -12,11 +12,16 @@ const cartSlice = createSlice({
   reducers: {
     changeStatus: (state, action) => {
       const itemId = action.payload;
-      console.log(itemId);
+      console.log(state);
+      return {
+        nutritionItems: [],
+        statusSelection: itemId,
+        isLoading: true,
+      };
     },
   },
 });
 
 console.log(cartSlice);
-export const {changeStatus} = cartSlice.actions;
+export const { changeStatus } = cartSlice.actions;
 export default cartSlice.reducer;

@@ -1,4 +1,4 @@
-import { Dimensions, FlatList, TouchableOpacity } from "react-native-web";
+import { Dimensions, FlatList, TouchableOpacity } from "react-native";
 import {
   ImageBackground,
   SafeAreaView,
@@ -18,11 +18,11 @@ import { useState } from "react";
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
 
-const StaterScreen = (props) => {
+const StaterScreen = ({ navigation }) => {
   const { statusSelection } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const [statusSelected, setStatusSelected] = useState("");
-  const [buttonNext, setButtonNext] = useState("");
+  const [buttonNext, setButtonNext] = useState(true);
   let [fontsLoaded] = useFonts({
     Inter_900Black,
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
@@ -30,9 +30,6 @@ const StaterScreen = (props) => {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
-  console.log(props);
-  console.log(statusSelection);
 
   const Item = ({ title }) => (
     <SafeAreaView>
@@ -51,10 +48,8 @@ const StaterScreen = (props) => {
     DATA.map((element) => {
       if (e.target.innerText === element.title) {
         setStatusSelected(element.emoticon);
+        setButtonNext(false);
         dispatch(changeStatus(element.id));
-        setButtonNext(
-          <TouchableOpacity style={styles.nextButton}>Next</TouchableOpacity>
-        );
       }
     });
     console.log(DATA);
@@ -79,9 +74,16 @@ const StaterScreen = (props) => {
         </View>
         <View style={styles.block3}>
           <Text style={styles.emoticon}>{statusSelected}</Text>
-          {buttonNext}
+          {/* <TouchableOpacity
+            disabled={buttonNext}
+            style={styles.nextButton}
+            onPress={() => {
+              navigation.navigate("Nutrition");
+            }}
+          >
+            <Text style={styles.buttonText}>NEXT</Text>
+          </TouchableOpacity> */}
         </View>
-
         <StatusBar style="auto" />
       </ImageBackground>
     </SafeAreaView>
@@ -139,13 +141,16 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#6B1CB0",
     fontSize: 17,
-    color: "white",
-    fontWeight: "bold",
+
     width: "30%",
     paddingVertical: 8,
     paddingHorizontal: 40,
-    opacity: 0.9,
     marginBottom: 40,
+  },
+  buttonText: {
+    color: "white",
+    fontFamily: "BebasNeue",
+    fontSize: 20,
   },
   footer: {
     color: "white",

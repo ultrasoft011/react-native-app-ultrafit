@@ -24,7 +24,6 @@ const IntroScreen = ({ navigation }) => {
   }
 
   const image = require("../assets/nutrition.jpg");
-  const image2 = require("../assets/12.jpg");
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,7 +39,7 @@ const IntroScreen = ({ navigation }) => {
           <Text style={styles.description}>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec vel
             est vitae arcu euismod lobortis. Donec bibendum ultrices aliquet.
-            Donec iaculis bibendum tellus.{" "}
+            Donec iaculis bibendum tellus.
           </Text>
         </View>
         <View style={styles.block3}>
@@ -51,10 +50,20 @@ const IntroScreen = ({ navigation }) => {
             }}
           >
             <Text style={styles.textStart}>TAP TO START</Text>
+            
           </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.startButton}
+            onPress={() => {
+              navigation.navigate("Starter");
+            }}
+          >
+            <Text style={styles.textStart}>LOGIN</Text>
+            
+          </TouchableOpacity>
+
         </View>
         <View style={styles.block4}>
-          <Image source={image2}></Image>
           <Text style={styles.footer}>Design by: Andrés Felipe - Ultra </Text>
           <Text>2022</Text>
         </View>
@@ -109,6 +118,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   textStart: {
+    marginBottom: 13,
     fontSize: 27,
     lineHeight: 10,
     textAlign: "center",
