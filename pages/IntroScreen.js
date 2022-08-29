@@ -10,7 +10,6 @@ import {
 } from "react-native";
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 
-import AppLoading from "expo-app-loading";
 import React from "react";
 
 const IntroScreen = ({ navigation }) => {
@@ -18,10 +17,6 @@ const IntroScreen = ({ navigation }) => {
     Inter_900Black,
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
   });
-
-  if (!fontsLoaded) {
-    return <AppLoading />;
-  }
 
   const image = require("../assets/nutrition.jpg");
 

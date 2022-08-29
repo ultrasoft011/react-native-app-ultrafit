@@ -15,7 +15,6 @@ import {
 } from "@expo-google-fonts/inter";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button } from "react-native-web";
 import React from "react";
 
 const spinach = require("../assets/spinach.jpg");

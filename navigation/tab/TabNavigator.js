@@ -1,6 +1,9 @@
-import { Account } from "../../pages/Account";
+import BoostersCard from "../../components/BoostersCard";
+import { HomeScreen } from "../../pages/HomeScreen";
 import IntroScreen from "../../pages/IntroScreen";
+import LoginScreen from "../../pages/LoginScreen";
 import { Nutrition } from "../../pages/Nutrition";
+import { Profile } from "../../pages/Profile";
 import React from "react";
 import StaterScreen from "../../pages/StarterScreen";
 import { StyleSheet } from "react-native";
@@ -10,12 +13,12 @@ const BottomTabs = createBottomTabNavigator();
 
 const TabNavigator = () => (
   <BottomTabs.Navigator
-    initialRouteName="IntroScreen"
+    initialRouteName=""
     screenOptions={{ headerShown: false, tabBarStyle: styles.tabBar }}
   >
     <BottomTabs.Screen
       name="Intro"
-      component={Account}
+      component={StaterScreen}
       options={{ tabBarStyle: { display: "none" } }}
     />
     <BottomTabs.Screen name="Starter" component={StaterScreen} />

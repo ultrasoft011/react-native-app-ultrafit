@@ -7,12 +7,14 @@ import {
   View,
 } from "react-native";
 import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
+import { addFood, changeStatus } from "../features/cart/cartSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import AppLoading from "expo-app-loading";
 import DATA from "../data/status";
 import { StatusBar } from "expo-status-bar";
-import { changeStatus } from "../features/cart/cartSlice";
+import { insertFood } from "../db";
+import nutritionItems from "../data/nutritionItems";
 import { useState } from "react";
 
 const screenHeight = Dimensions.get("window").height;
@@ -50,9 +52,18 @@ const StaterScreen = ({ navigation }) => {
         setStatusSelected(element.emoticon);
         setButtonNext(false);
         dispatch(changeStatus(element.id));
+        dispatch(
+          addFood({
+            id: "1",
+            title: "Juntas",
+            price: "99.99",
+            img: "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
+            amount: 0,
+          })
+        );
       }
     });
-    console.log(DATA);
+    console.log(nutritionItems);
   };
   return (
     <SafeAreaView style={styles.container}>

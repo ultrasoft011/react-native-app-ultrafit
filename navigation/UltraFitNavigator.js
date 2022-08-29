@@ -1,7 +1,9 @@
-import { Account } from "../pages/Account";
+import { HomeScreen } from "../pages/HomeScreen";
 import IntroScreen from "../pages/IntroScreen";
+import LoginScreen from "../pages/LoginScreen";
 import { NavigationContainer } from "@react-navigation/native";
 import { Nutrition } from "../pages/Nutrition";
+import { Profile } from "../pages/Profile";
 import React from "react";
 import StaterScreen from "../pages/StarterScreen";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -19,7 +21,9 @@ const UltraFitNavigator = () => (
       <Stack.Screen name="Home" component={IntroScreen} />
       <Stack.Screen name="Starter" component={StaterScreen} />
       <Stack.Screen name="Nutrition" component={Nutrition} />
-      <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Profile" component={Profile} />
+      <Stack.Screen name="Profile" component={HomeScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );
