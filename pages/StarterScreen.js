@@ -13,17 +13,18 @@ import { useDispatch, useSelector } from "react-redux";
 import AppLoading from "expo-app-loading";
 import DATA from "../data/status";
 import { StatusBar } from "expo-status-bar";
-import { insertFood } from "../db";
 import nutritionItems from "../data/nutritionItems";
+import { useEffect } from "react";
 import { useState } from "react";
 
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
+const firstImage = require("../assets/home-image.jpg");
 
 const StaterScreen = ({ navigation }) => {
   const { statusSelection } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  const [statusSelected, setStatusSelected] = useState("");
+  const [statusSelected, setStatusSelected] = useState("01");
   const [buttonNext, setButtonNext] = useState(true);
   let [fontsLoaded] = useFonts({
     Inter_900Black,
@@ -33,6 +34,8 @@ const StaterScreen = ({ navigation }) => {
     return <AppLoading />;
   }
 
+  const renderItem = ({ item }) => <Item title={item.title} />;
+
   const Item = ({ title }) => (
     <SafeAreaView>
       <TouchableOpacity onPress={onPress}>
@@ -41,30 +44,21 @@ const StaterScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 
-  const firstImage = require("../assets/home-image.jpg");
-
-  const renderItem = ({ item }) => <Item title={item.title} />;
-
-  const onPress = (e) => {
-    console.log(e.target.innerText);
+  const onPress = () => {
     DATA.map((element) => {
-      if (e.target.innerText === element.title) {
-        setStatusSelected(element.emoticon);
-        setButtonNext(false);
-        dispatch(changeStatus(element.id));
-        dispatch(
-          addFood({
-            id: "1",
-            title: "Juntas",
-            price: "99.99",
-            img: "https://dl.airtable.com/.attachments/64b266ad865098befbda3c3577a773c9/24497852/yedjpkwxljtb75t3tezl.png",
-            amount: 0,
-          })
-        );
+      // console.log(element.id);
+      if (element.id === "01") {
+        console.log("01");
+        return setStatusSelected("01");
       }
+      if (element.id === "02") {
+        return setStatusSelected("02");
+      }
+      if (element.id === "03") return setStatusSelected("03");
     });
-    console.log(nutritionItems);
+    dispatch(changeStatus(statusSelected));
   };
+
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground
@@ -84,16 +78,17 @@ const StaterScreen = ({ navigation }) => {
           ></FlatList>
         </View>
         <View style={styles.block3}>
-          <Text style={styles.emoticon}>{statusSelected}</Text>
-          {/* <TouchableOpacity
-            disabled={buttonNext}
+          <View style={styles.emoticon}>
+            {/* <Text>{statusSelected}</Text> */}
+          </View>
+          <TouchableOpacity
             style={styles.nextButton}
             onPress={() => {
               navigation.navigate("Nutrition");
             }}
           >
             <Text style={styles.buttonText}>NEXT</Text>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
         </View>
         <StatusBar style="auto" />
       </ImageBackground>
@@ -104,6 +99,7 @@ const StaterScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 20,
     alignItems: "center",
     justifyContent: "center",
   },

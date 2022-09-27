@@ -13,17 +13,17 @@ const Stack = createNativeStackNavigator();
 const UltraFitNavigator = () => (
   <NavigationContainer>
     <Stack.Navigator
-      initialRouteName="Home"
+      initialRouteName="Intro"
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Home" component={IntroScreen} />
+      <Stack.Screen name="Intro" component={IntroScreen} />
       <Stack.Screen name="Starter" component={StaterScreen} />
       <Stack.Screen name="Nutrition" component={Nutrition} />
       <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Profile" component={Profile} />
-      <Stack.Screen name="Profile" component={HomeScreen} />
     </Stack.Navigator>
   </NavigationContainer>
 );

@@ -6,7 +6,7 @@ import { useState } from "react";
 export default function ToggleCamera() {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
-
+//
   if (!permission) {
     // Camera permissions are still loading
     return <View />;

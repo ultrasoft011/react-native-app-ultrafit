@@ -12,14 +12,15 @@ import {
 
 import AntDesign from "react-native-vector-icons/AntDesign";
 import React from "react";
+import ToggleCamera from "../components/ToggleCamera";
 import { useFonts } from "expo-font";
 
-export const Profile = () => {
+export const Profile = ({ navigation }) => {
   let [fontsLoaded] = useFonts({
     BebasNeue: require("../assets/fonts/BebasNeue-Regular.ttf"),
     Abel: require("../assets/fonts/Abel-Regular.ttf"),
   });
-  const profileImage = require("../assets/profile-img.jpg");
+  const profileImage = require("../assets/profile-man.jpg");
   const image = require("../assets/nutrition.jpg");
 
   if (!fontsLoaded) {
@@ -33,10 +34,13 @@ export const Profile = () => {
         imageStyle={{ opacity: 0.85 }}
       >
         <View style={styles.header}>
-          <AntDesign
-            name="leftcircle"
-            style={{ fontSize: 21, marginLeft: "10%" }}
-          />
+          <TouchableOpacity
+            style={{ marginLeft: "10%" }}
+            onPress={() => navigation.navigate("Home")}
+          >
+            <AntDesign name="leftcircle" style={{ fontSize: 21 }} />
+          </TouchableOpacity>
+
           <Text
             style={{
               fontFamily: "Abel",
@@ -48,8 +52,8 @@ export const Profile = () => {
           </Text>
         </View>
         <View style={styles.blockOne}>
-          <View style={styles.profileImage}>
-            <Image source={profileImage} />
+          <View>
+            <Image style={styles.profileImage} source={profileImage} />
           </View>
           <View>
             <Text
@@ -111,6 +115,9 @@ export const Profile = () => {
             <Text style={styles.nutritionText}>Calories: 2000 kcal</Text>
           </View>
         </View>
+        <View>
+          <ToggleCamera />
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   profileImage: {
-    borderRadius: "50%",
+    borderRadius: 40,
     width: 100,
     height: 100,
   },

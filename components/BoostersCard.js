@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFEEA",
   },
   foodImage: {
-    maxWidth: 310,
-    width: 310,
+    maxWidth: 250,
+    width: 250,
     height: 120,
   },
   foodTitle: {

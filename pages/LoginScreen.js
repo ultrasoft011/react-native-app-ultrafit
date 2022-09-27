@@ -1,10 +1,16 @@
 import {
   Alert,
+  Dimensions,
   ImageBackground,
+  Keyboard,
+  KeyboardAvoidingView,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
+  TouchableWithoutFeedback,
   View,
 } from "react-native";
 import React, { useState } from "react";
@@ -15,11 +21,14 @@ import {
 } from "firebase/auth";
 
 import AntDesign from "react-native-vector-icons/AntDesign";
+import ToggleCamera from "../components/ToggleCamera";
 import { firebaseConfig } from "../firebase-config";
 import { initializeApp } from "firebase/app";
 import { useFonts } from "expo-font";
 
-export default function LoginScreen() {
+const windowHeight = Dimensions.get("window").height;
+
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   let [fontsLoaded] = useFonts({
@@ -49,6 +58,7 @@ export default function LoginScreen() {
   const handleSignIn = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then(() => {
+        navigation.navigate("Home");
         console.log("Signed In");
         const user = userCredential.user;
         console.log(user);
@@ -60,90 +70,108 @@ export default function LoginScreen() {
   };
 
   return (
-    <View style={styles.mainBlock}>
-      <ImageBackground
-        source={loginImagen}
-        style={styles.loginImagen}
-        imageStyle={{ opacity: 0.1 }}
-      >
-        <View style={styles.block1}>
-          <Text style={styles.block1Text}>ULTRAFIT</Text>
-        </View>
-      </ImageBackground>
-      <View style={styles.block2}>
-        <Text style={styles.block2Text}>LOGIN</Text>
-        <View style={styles.inputMainblock}>
-          <View>
-            <View style={styles.block3}>
-              <AntDesign name="mail" style={{ fontSize: 21, marginRight: 5 }} />
-
-              <TextInput
-                style={styles.input}
-                onChangeText={(text) => setEmail(text)}
-                placeholder="username o email"
-                keyboardType="numeric"
-              />
-            </View>
-            <View style={styles.block3}>
-              <AntDesign name="lock" style={{ fontSize: 21, marginRight: 5 }} />
-
-              <TextInput
-                style={styles.input}
-                onChangeText={(text) => setPassword(text)}
-                placeholder="password"
-                secureTextEntry={true}
-              />
-            </View>
-          </View>
-          <TouchableOpacity onPress={handleSignIn}>
-            <AntDesign
-              name="rightcircle"
-              style={{ fontSize: 48, marginLeft: "50%", color: "#6a5acd" }}
-            />
-          </TouchableOpacity>
-        </View>
-        <TouchableOpacity
-          onPress={handleCreateAccount}
-          style={{ marginBottom: "20%", width: "50%" }}
+    <SafeAreaView style={styles.mainBlock}>
+      <View style={{ flex: 1 }}>
+        <ImageBackground
+          source={loginImagen}
+          style={styles.loginImagen}
+          imageStyle={{ opacity: 0.1 }}
         >
-          <Text style={styles.newAccount}>CREATE AN ACCOUNT</Text>
-        </TouchableOpacity>
+          <View style={styles.block1}>
+            <Text style={styles.block1Text}>ULTRAFIT</Text>
+          </View>
+        </ImageBackground>
+
+        <View style={styles.block2}>
+          <Text style={styles.block2Text}>LOGIN</Text>
+
+          <View style={styles.inputMainblock}>
+            <View>
+              <View style={styles.block3}>
+                <AntDesign
+                  name="mail"
+                  style={{ fontSize: 21, marginRight: 5 }}
+                />
+
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(text) => setEmail(text)}
+                  placeholder="username o email"
+                  maxLength={30}
+                />
+              </View>
+
+              <View style={styles.block3}>
+                <AntDesign
+                  name="lock"
+                  style={{ fontSize: 21, marginRight: 5 }}
+                />
+
+                <TextInput
+                  style={styles.input}
+                  onChangeText={(text) => setPassword(text)}
+                  placeholder="password"
+                  secureTextEntry={true}
+                />
+              </View>
+            </View>
+            <TouchableOpacity
+              style={{ marginLeft: 70, position: "absolute", left: 200 }}
+              onPress={handleSignIn}
+            >
+              <AntDesign
+                name="rightcircle"
+                style={{
+                  fontSize: 48,
+                  color: "#6a5acd",
+                }}
+              />
+            </TouchableOpacity>
+          </View>
+          <View style={{ marginBottom: "8%", width: "50%" }}>
+            <TouchableWithoutFeedback onPress={handleCreateAccount}>
+              <Text style={styles.newAccount}>CREATE AN ACCOUNT</Text>
+            </TouchableWithoutFeedback>
+          </View>
+          <View>
+            <ToggleCamera />
+          </View>
+        </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   mainBlock: {
     backgroundColor: "#6a5acd",
-    // height: "100%",
-    flex: 1
+    flex: 1,
   },
   block1: {
-    height: "55%",
+    flex: 1,
+    height: "40%",
     alignItems: "center",
-    justifyContent: "flex-end",
+    justifyContent: "center",
   },
   block2: {
     backgroundColor: "white",
     borderTopLeftRadius: 31,
     borderTopRightRadius: 31,
-    height: "45%",
     // alignItems: "center",
     // justifyContent: "center",
     padding: 50,
+    height: "60%",
   },
   block3: {
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: 19,
+    height: "auto",
   },
   block1Text: {
     color: "white",
     fontFamily: "BebasNeue",
     fontSize: 45,
-    marginTop: 30,
-
   },
   block2Text: {
     color: "#6a5acd",

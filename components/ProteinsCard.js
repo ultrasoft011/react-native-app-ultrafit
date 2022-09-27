@@ -15,7 +15,6 @@ import {
 } from "@expo-google-fonts/inter";
 import { useDispatch, useSelector } from "react-redux";
 
-import { Button } from "react-native-web";
 import React from "react";
 
 const brownRice = require("../assets/brown-rice.jpg");
@@ -83,8 +82,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#F7EDFF",
   },
   foodImage: {
-    maxWidth: 310,
-    width: 310,
+    maxWidth: 250,
+    width: 250,
     height: 120,
   },
   foodTitle: {
